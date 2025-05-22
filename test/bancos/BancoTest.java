@@ -38,6 +38,7 @@ class BancoTest {
         banco.agregarCliente(juan);
         creditoPersonal1 = new CreditoPersonal(12 , 11000d, carlos);
         creditoHipotecario1 = new CreditoHipotecario(72 , 50000d, carlos);
+        creditoPersonal2 = new CreditoPersonal(12, 7000d, juan);
     }
 	
 	@Test
