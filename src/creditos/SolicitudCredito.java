@@ -7,7 +7,6 @@ public abstract class SolicitudCredito {
 	private int cantidadDeCuotas;
 	private Double montoSolicitado;
 	private Cliente solicitante;
-	private Boolean aceptada = false;
 	
 	public Double getMontoDeLaCuota() {
 		return montoDeLaCuota;
@@ -21,10 +20,6 @@ public abstract class SolicitudCredito {
 		return montoSolicitado;
 	}
 
-	public Cliente getSolicitante() {
-		return solicitante;
-	}
-
 	
 	public SolicitudCredito(int cantidadDeCuotas, Double montoSolicitado, Cliente solicitante) {
 		this.montoDeLaCuota = montoSolicitado/cantidadDeCuotas;
@@ -33,13 +28,10 @@ public abstract class SolicitudCredito {
 		this.solicitante = solicitante;
 	}
 
-	abstract public void checkearCredito();
-	
-	public Boolean fueAceptado() {
-		return aceptada;
+	abstract public boolean checkearCredito();
+
+	public Cliente getSolicitante() {
+		return solicitante;
 	}
-	
-	public void aceptarCredito() {
-		aceptada = true;
-	}
+
 }

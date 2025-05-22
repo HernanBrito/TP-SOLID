@@ -7,19 +7,20 @@ public class CreditoHipotecario extends SolicitudCredito{
 	
 	private Propiedad garantia;
 
-	public CreditoHipotecario(int cantidadDeCuotas, Double montoSolicitado, Cliente solicitante, Propiedad propiedad) {
+	public CreditoHipotecario(int cantidadDeCuotas, Double montoSolicitado, Cliente solicitante) {
 		super(cantidadDeCuotas, montoSolicitado, solicitante);
-		this.garantia = propiedad;
+		this.garantia = this.getSolicitante().getPropiedadMasValiosa();
 	}
 
 	@Override
-	public void checkearCredito() {
+	public boolean checkearCredito() {
 		if(this.getMontoSolicitado() < this.garantia.getValorFiscal() &&
 				(this.getMontoDeLaCuota() < this.getSolicitante().getSueldoNetoMensual() * 0.5d ) &&
 				(this.edadSuficienteParaElCredito())
 		   ){
-			this.aceptarCredito();
+			return true;
 		}
+		return false;
 	}
 	
 	private Boolean edadSuficienteParaElCredito() {

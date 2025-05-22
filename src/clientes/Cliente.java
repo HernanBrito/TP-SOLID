@@ -51,14 +51,6 @@ public class Cliente {
     public int getEdad() {
         return (int) ChronoUnit.YEARS.between(fecNac, LocalDate.now());
     }
-    
-    public void solicitarCreditoPersonal(Double monto , int plazoEnMeses){
-    	this.getBanco().solicitarCreditoPersonal(monto, plazoEnMeses, this);
-    }
-    
-    public void solicitarCreditoHipotecario(Double monto , int plazoEnMeses, Propiedad propiedad){
-    	this.getBanco().solicitarCreditoHipotecario(monto, plazoEnMeses, this, propiedad);
-    }
 	
     public void addPropiedad(Propiedad propiedad) {
     	propiedades.add(propiedad);

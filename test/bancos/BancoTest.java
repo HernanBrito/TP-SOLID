@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import clientes.Cliente;
+import creditos.SolicitudCredito;
+import creditos.CreditoPersonal;
+import creditos.CreditoHipotecario;
 import propiedad.Propiedad;
 
 class BancoTest {
@@ -18,6 +21,10 @@ class BancoTest {
 	private Banco banco;
 	private Cliente carlos;
 	private Cliente juan;
+	private SolicitudCredito creditoPersonal1;
+	private SolicitudCredito creditoPersonal2;
+	private SolicitudCredito creditoHipotecario1;
+	
 	
 	@BeforeEach
     public void setup() {
@@ -29,6 +36,8 @@ class BancoTest {
         p3 = new Propiedad(50000d , "Roque Sáenz Peña 300", juan);
         banco.agregarCliente(carlos);
         banco.agregarCliente(juan);
+        creditoPersonal1 = new CreditoPersonal(12 , 11000d, carlos);
+        creditoHipotecario1 = new CreditoHipotecario(72 , 50000d, carlos);
     }
 	
 	@Test
@@ -46,17 +55,17 @@ class BancoTest {
 	
 	@Test
 	void testCarlosSolicitarCreditoPersonalYHipotecario() {
-		carlos.solicitarCreditoPersonal(11000d, 12);
+		banco.agregarSolicitudDeCredito(creditoHipotecario1);
 		assertEquals(1 , banco.getCantidadDeSolicitudesDeCreditos());
-		carlos.solicitarCreditoHipotecario(50000d, 36, carlos.getPropiedadMasValiosa());
+		banco.agregarSolicitudDeCredito(creditoPersonal1);
 		assertEquals(2 ,banco.getCantidadDeSolicitudesDeCreditos());
 	}
 	
 	@Test
 	void testearAprobacionDeCreditos() {
-		carlos.solicitarCreditoPersonal(11000d, 12);
-		carlos.solicitarCreditoHipotecario(25000d, 36, carlos.getPropiedadMasValiosa());
-		assertEquals(36000d,banco.calcularTotalDesembolsosAceptados());
+		banco.agregarSolicitudDeCredito(creditoHipotecario1);
+		banco.agregarSolicitudDeCredito(creditoPersonal1);
+		assertEquals(61000d,banco.calcularTotalDesembolsosAceptados());
 	}
 
 }

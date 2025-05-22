@@ -10,12 +10,13 @@ public class CreditoPersonal extends SolicitudCredito {
 	}
 
 	@Override
-	public void checkearCredito() {
+	public boolean checkearCredito() {
 		if(this.getSolicitante().getSueldoNetoAnual() > 15000d &&
 				(this.getMontoDeLaCuota() < this.getSolicitante().getSueldoNetoMensual() * 0.7d )
 		   ){
-			this.aceptarCredito();
+			return true;
 		}
+		return false;
 	}
 	
 }
