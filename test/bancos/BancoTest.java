@@ -24,21 +24,23 @@ class BancoTest {
 	private SolicitudCredito creditoPersonal1;
 	private SolicitudCredito creditoPersonal2;
 	private SolicitudCredito creditoHipotecario1;
+	private SolicitudCredito creditoHipotecario2;
 	
 	
 	@BeforeEach
     public void setup() {
 		banco = new Banco();
         carlos = new Cliente("Carlos", "Gonzales", 1400d, LocalDate.parse("1990-02-03"), banco);
-        juan = new Cliente("Juan", "Rodriguez", 1000d, LocalDate.parse("1985-01-10"), banco); 
+        juan = new Cliente("Juan", "Rodriguez", 1700d, LocalDate.parse("1985-01-10"), banco); 
         p1 = new Propiedad(75000d , "Av. Libertador 7300", carlos);
         p2 = new Propiedad(25000d , "Roque Sáenz Peña 300", carlos);
-        p3 = new Propiedad(50000d , "Roque Sáenz Peña 300", juan);
+        p3 = new Propiedad(25000d , "Roque Sáenz Peña 300", juan);
         banco.agregarCliente(carlos);
         banco.agregarCliente(juan);
         creditoPersonal1 = new CreditoPersonal(12 , 11000d, carlos);
         creditoHipotecario1 = new CreditoHipotecario(72 , 50000d, carlos);
-        creditoPersonal2 = new CreditoPersonal(12, 7000d, juan);
+        creditoPersonal2 = new CreditoPersonal(18, 10000d, juan);
+        creditoHipotecario2 = new CreditoHipotecario(96 , 70000d, juan);
     }
 	
 	@Test
@@ -62,11 +64,16 @@ class BancoTest {
 		assertEquals(2 ,banco.getCantidadDeSolicitudesDeCreditos());
 	}
 	
+	
+	//el credito hipotecario2 no se aprueba porque el monto de la propiedad de juan es muy barata a comparacion
+	//del monto que pide la solicitud de credito
 	@Test
 	void testearAprobacionDeCreditos() {
 		banco.agregarSolicitudDeCredito(creditoHipotecario1);
 		banco.agregarSolicitudDeCredito(creditoPersonal1);
-		assertEquals(61000d,banco.calcularTotalDesembolsosAceptados());
+		banco.agregarSolicitudDeCredito(creditoHipotecario2);// no se acepta
+		banco.agregarSolicitudDeCredito(creditoPersonal2);
+		assertEquals(71000d, banco.calcularTotalDesembolsosAceptados());
 	}
 
 }

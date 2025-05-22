@@ -14,9 +14,9 @@ public class CreditoHipotecario extends SolicitudCredito{
 
 	@Override
 	public boolean checkearCredito() {
-		if(this.getMontoSolicitado() < this.garantia.getValorFiscal() &&
-				(this.getMontoDeLaCuota() < this.getSolicitante().getSueldoNetoMensual() * 0.5d ) &&
-				(this.edadSuficienteParaElCredito())
+		if(this.getMontoSolicitado() <= this.garantia.getValorFiscal() * 0.7 &&
+		  (this.getMontoDeLaCuota() <= this.getSolicitante().getSueldoNetoMensual() * 0.5d ) &&
+		  (this.edadSuficienteParaElCredito())
 		   ){
 			return true;
 		}
